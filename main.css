@@ -6,9 +6,12 @@ html, body {
 }
 
 #wrapper {
+	position: relative;
+}
+
+#wrapper, section {
 	width: 100vw;
 	height: 100vh;
-	position: relative;
 }
 section {
 	position: absolute;

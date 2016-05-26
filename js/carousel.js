@@ -1,9 +1,3 @@
-class App {
-	static init() {
-		new Carousel('section');
-	}
-}
-
 class Carousel {
 	constructor(sections) {
 		this.num = 0;
@@ -12,17 +6,12 @@ class Carousel {
 		this.current = this.sections[this.num];
 		this.left = document.querySelector('#left');
 		this.right = document.querySelector('#right');
-		this.init();
 	}
 
 	init() {
-		this.setCurrent();
+		View.showCurrent(this.sections, this.current);
 		this.onClick();
-	}
-
-	setCurrent() {
-		this.sections.map(section => section.style.display = 'none');
-		this.current.style.display = 'block';
+		this.setHash();
 	}
 
 	onClick() {
@@ -46,9 +35,32 @@ class Carousel {
 				this.num = 0;
 
 		this.current = this.sections[this.num];
-		this.setCurrent();
+		View.showCurrent(this.sections, this.current);
+		this.setHash();
 	}
 
-}
+	setHash() {
+		var hash = new Hash(this.getCurrent(), 'title');
+		hash.setHash();
+	}
 
-App.init();
+	setCurrent(current) {
+		this.current = current;
+	}
+
+	getCurrent() {
+		return this.current;
+	}
+
+	getSectionByTitle(title) {
+		for (let i = 0; i < this.sections.length; i++) {
+			if (this.sections[i].dataset.title == title) {
+				return this.sections[i];
+			}
+		}
+	}
+
+	getSections() {
+		return this.sections;
+	}
+}
